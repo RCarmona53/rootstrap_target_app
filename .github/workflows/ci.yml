@@ -22,7 +22,7 @@ jobs:
     
     env:
       RAILS_ENV: test
-      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      CC_TEST_REPORTER_ID: ${{ 1c208a10faa9a4f290647b3587e297237fb7de47c8c3fa781e388c0dd6b2d80a }}
 
     steps:
       - name: Checkout code
