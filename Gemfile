@@ -24,6 +24,7 @@ gem 'sass-rails', '~> 6.0.0'
 gem 'sendgrid', '~> 1.2.4'
 gem 'sprockets', '~> 3.7.2'
 gem 'yaaf', '~> 2.2'
+gem 'parser', '~> 3.1.3'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -49,11 +50,12 @@ group :development do
   gem 'i18n-tasks', '~> 0.9.30'
   gem 'letter_opener', '~> 1.7'
   gem 'listen', '~> 3.2'
-  gem 'rails_best_practices', '~> 1.20'
+  gem 'rails_best_practices', '~> 1.20' 
   gem 'reek', '~> 6.1', '>= 6.1.1'
   gem 'rubocop-rails', '~> 2.16', '>= 2.16.1', require: false
   gem 'rubocop-rootstrap', '~> 1.2'
   gem 'spring', '~> 4.0'
+  gem 'wdm', '>= 0.1.0', platforms: [:x64_mingw]
 end
 
 group :test do
