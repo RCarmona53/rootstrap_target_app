@@ -186,6 +186,7 @@ GEM
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
+    ffi (1.15.5-x64-mingw-ucrt)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
     formtastic (4.0.0)
@@ -272,6 +273,8 @@ GEM
     nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.14.3-x64-mingw-ucrt)
+      racc (~> 1.4)
     oj (3.13.21)
     orm_adapter (0.5.0)
     pagy (4.11.0)
@@ -279,6 +282,7 @@ GEM
     parser (3.1.2.1)
       ast (~> 2.4.1)
     pg (1.4.3)
+    pg (1.4.3-x64-mingw-ucrt)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -445,6 +449,7 @@ GEM
     uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    wdm (0.1.1)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -459,6 +464,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw-ucrt
 
 DEPENDENCIES
   active_storage_base64 (~> 2.0.0)
@@ -506,6 +512,7 @@ DEPENDENCIES
   sprockets (~> 3.7.2)
   tzinfo-data
   uglifier (~> 4.2)
+  wdm (>= 0.1.0)
   webmock (~> 3.7, >= 3.7.6)
   yaaf (~> 2.2)
 
