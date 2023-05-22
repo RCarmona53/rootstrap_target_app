@@ -3,8 +3,8 @@
 
 topic1 = Topic.new(name: 'Futbol')
 topic1.image.attach(io: File.open('app/assets/images/futbol.jpg'), filename: 'futbol.jpg')
-topic1.save
+topic1.save!
 
 topic2 = Topic.new(name: 'PC')
 topic2.image.attach(io: File.open('app/assets/images/PC.png'), filename: 'PC.png')
-topic2.save
+topic2.save!
