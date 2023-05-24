@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       resources :settings, only: [] do
         get :must_update, on: :collection
       end
+
+      resources :topics, only: [:index]
     end
   end
 end
