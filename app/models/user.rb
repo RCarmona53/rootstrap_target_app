@@ -40,6 +40,8 @@ class User < ApplicationRecord
 
   before_validation :init_uid
 
+  has_many :targets, dependent: :destroy
+
   def full_name
     return username if first_name.blank?
 
