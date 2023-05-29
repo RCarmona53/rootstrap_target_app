@@ -1,2 +1,2 @@
-class MaxTargetsError < StandardError
+class MaxTargets < StandardError
 end
