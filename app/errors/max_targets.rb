@@ -1,0 +1,2 @@
+class MaxTargetsError < StandardError
+end

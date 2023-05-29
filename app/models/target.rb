@@ -25,4 +25,16 @@ class Target < ApplicationRecord
 
   belongs_to :topic
   belongs_to :user
+
+  validate :max_target_amount_reached, unless: -> { user.nil? }
+
+  MAX_TARGETS = ENV.fetch('TARGET_CREATION_LIMIT', '3').to_i
+
+  private
+
+  def max_target_amount_reached
+    return if user.targets.count < MAX_TARGETS
+
+    errors.add(:user, I18n.t('api.errors.max_targets_reached'))
+  end
 end

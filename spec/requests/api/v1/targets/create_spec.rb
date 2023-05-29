@@ -79,5 +79,18 @@ describe 'POST api/v1/targets', type: :request do
         expect(response.status).to eq(failed_response)
       end
     end
+
+    context 'when the user has reached the maximum number of targets' do
+      let!(:user_targets)  { create_list(:target, 3, user:) }
+
+      it 'does not create a target' do
+        expect { subject }.not_to change { Target.count }
+      end
+
+      it 'does not return a successful response' do
+        subject
+        expect(response.status).to eq(failed_response)
+      end
+    end
   end
 end

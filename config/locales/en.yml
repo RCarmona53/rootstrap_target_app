@@ -10,3 +10,4 @@ en:
       invalid_content_type: Invalid content type header
       missing_param: A required param is missing
       not_found: Couldn't find the record
+      max_targets_reached: You have reached the maximum number (3) of targets.
