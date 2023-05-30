@@ -13,6 +13,7 @@
 #
 
 class Topic < ApplicationRecord
+  has_many :targets, dependent: :destroy
   has_one_attached :image, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
