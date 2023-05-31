@@ -91,6 +91,11 @@ describe 'POST api/v1/targets', type: :request do
         subject
         expect(response.status).to eq(failed_response)
       end
+
+      it 'returns an error message' do
+        subject
+        expect(json[:errors][:user].first).to eq(I18n.t('api.errors.max_targets_reached', max_targets: 3))
+      end
     end
   end
 end
