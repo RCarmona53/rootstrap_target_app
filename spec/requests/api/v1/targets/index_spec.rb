@@ -2,7 +2,7 @@ describe 'GET api/v1/targets', type: :request do
   let!(:user)               { create(:user) }
   let!(:user_targets)       { create_list(:target, 3, user:) }
   let!(:targets)            { create_list(:target, 5) }
-  let(:first_target_user)        { user_targets.first }
+  let(:first_target_user)   { user_targets.first }
   subject { get api_v1_targets_path, headers: auth_headers, as: :json }
 
   it 'returns a successful response' do
