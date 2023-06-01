@@ -3,7 +3,6 @@ describe 'DELETE api/v1/targets/:id', type: :request do
   let!(:user_targets)       { create_list(:target, 3, user:) }
   let!(:other_targets)      { create_list(:target, 3) }
   let(:first_target_user)   { user_targets.first }
-  let(:failed_response)     { 404 }
   let(:id)                  { first_target_user.id }
   subject { delete api_v1_target_path(id:), headers: auth_headers, as: :json }
 
@@ -13,10 +12,10 @@ describe 'DELETE api/v1/targets/:id', type: :request do
   end
 
   it 'deletes the target' do
-    expect { subject }.to change(Target, :count).from(6).to(5)
+    expect { subject }.to change(user.targets, :count).by(-1)
   end
 
-  context 'when target do not belongs to current user' do
+  context 'when trying to delete a target from another user' do
     let(:id) { other_targets.first.id }
 
     it 'does not delete a target' do
@@ -25,7 +24,7 @@ describe 'DELETE api/v1/targets/:id', type: :request do
 
     it 'does not return a successful response' do
       subject
-      expect(response.status).to eq(failed_response)
+      expect(response).to be_not_found
     end
   end
 
@@ -38,7 +37,7 @@ describe 'DELETE api/v1/targets/:id', type: :request do
 
     it 'does not return a successful response' do
       subject
-      expect(response.status).to eq(failed_response)
+      expect(response).to be_not_found
     end
   end
 
