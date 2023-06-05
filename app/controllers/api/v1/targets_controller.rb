@@ -10,6 +10,12 @@ module Api
         @target = current_user.targets.create!(resource_params)
       end
 
+      def destroy
+        @target = current_user.targets.find(params[:id])
+        authorize @target
+        @target.destroy!
+      end
+
       def resource_params
         params.require(:target).permit(:title, :lat, :lng, :radius, :topic_id)
       end
