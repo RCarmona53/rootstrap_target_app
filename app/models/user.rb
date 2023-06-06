@@ -42,10 +42,18 @@ class User < ApplicationRecord
 
   has_many :targets, dependent: :destroy
 
+  has_many :matches, dependent: :destroy
+  has_many :conversations, through: :matches
+
   def full_name
     return username if first_name.blank?
 
     "#{first_name} #{last_name}"
+  end
+
+  def chat(user)
+    Conversation.joins(:matches).where(matches:
+    { user_id: id, conversation_id: user.conversations.ids }).first
   end
 
   def self.from_social_provider(provider, user_params)
