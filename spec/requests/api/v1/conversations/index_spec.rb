@@ -31,4 +31,3 @@ describe 'GET /api/v1/conversations', type: :request do
     end
   end
 end
- 
