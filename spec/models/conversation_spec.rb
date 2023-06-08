@@ -21,5 +21,16 @@ RSpec.describe Conversation, type: :model do
 
   context 'validations' do
     it { is_expected.to have_many(:users) }
+
+    it 'checks that a user has multiple matches' do
+      user = create(:user)
+      conversation = create(:conversation, user_id: user.id)
+
+      conversation.users << user
+      conversation.users << create(:user)
+      conversation.users << create(:user)
+
+      expect(conversation.users.count).to be > 1
+    end
   end
 end

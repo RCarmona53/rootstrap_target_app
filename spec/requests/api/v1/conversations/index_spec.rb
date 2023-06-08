@@ -5,15 +5,7 @@ describe 'GET /api/v1/conversations', type: :request do
   let(:user2)  { create(:user) }
 
   before(:each) do
-    target = create(:target, user_id: user.id)
-    create_list(
-      :target, 2,
-      topic_id: target.topic.id,
-      user_id: user2.id,
-      lat: target.lat,
-      lng: target.lng
-    )
-    create(:conversation, users: [user, user2], user_id: user.id)
+    create(:conversation, :with_matching_targets, users: [user, user2], user_id: user.id)
   end
 
   context 'when the request is valid' do

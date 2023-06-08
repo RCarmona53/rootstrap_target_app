@@ -17,7 +17,7 @@
 #  index_targets_on_topic_id  (topic_id)
 #  index_targets_on_user_id   (user_id)
 #
-
+# app/models/target.rb
 class Target < ApplicationRecord
   validates :title, presence: true
   validates :radius, presence: true, numericality: { greater_than: 0 }
@@ -34,11 +34,11 @@ class Target < ApplicationRecord
 
   MAX_TARGETS = ENV.fetch('TARGET_CREATION_LIMIT', '3').to_i
 
-  def matched_targets
-    Target.exclude_current_user(user_id).with_same_topic(topic_id)
-  end
-
   private
+
+  def matched_targets
+    MatchedTargetsQuery.call(user_id, topic_id)
+  end
 
   def max_targets
     return unless user.targets.count == MAX_TARGETS

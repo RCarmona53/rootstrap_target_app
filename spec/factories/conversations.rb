@@ -28,5 +28,21 @@ FactoryBot.define do
         conversation.user_id = evaluator.user2.id
       end
     end
+
+    trait :with_matching_targets do
+      after(:create) do |conversation|
+        user = conversation.users.first
+        user2 = conversation.users.last
+
+        target = create(:target, user: user)
+        create_list(
+          :target, 2,
+          topic: target.topic,
+          user: user2,
+          lat: target.lat,
+          lng: target.lng
+        )
+      end
+    end
   end
 end
