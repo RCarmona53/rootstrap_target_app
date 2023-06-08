@@ -34,7 +34,7 @@ FactoryBot.define do
         user = conversation.users.first
         user2 = conversation.users.last
 
-        target = create(:target, user: user)
+        target = create(:target, user:)
         create_list(
           :target, 2,
           topic: target.topic,
