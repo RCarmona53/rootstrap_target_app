@@ -1,5 +1,3 @@
-DEFAULT_PER_PAGE = 5
-
 describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request do
   let(:user) { create(:user) }
   let(:conversation) { create(:conversation_with_users, user1: user) }
@@ -67,7 +65,7 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
       end
 
       it 'returns a list of messages for the conversation' do
-        expect(json['messages'].length).to eq(DEFAULT_PER_PAGE)
+        expect(json['messages'].length).to eq(Target::DEFAULT_PER_PAGE)
       end
     end
 
