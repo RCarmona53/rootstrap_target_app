@@ -33,8 +33,13 @@ describe 'POST /api/v1/conversations/:conversation_id/messages', type: :request 
     let(:other_conversation) { create(:conversation_with_users, user1: other_user) }
     subject do
       post "/api/v1/conversations/#{other_conversation.id}/messages",
-           params: { user_id: user.id, content: 'Message Test', conversation_id: other_conversation.id },
-           headers: auth_headers, as: :json
+           params: {
+             user_id: user.id,
+             content: 'Message Test',
+             conversation_id: other_conversation.id
+           },
+           headers: auth_headers,
+           as: :json
     end
 
     it 'does not create the message' do
