@@ -494,7 +494,6 @@ DEPENDENCIES
   i18n-tasks (~> 0.9.30)
   image_processing (~> 1.2)
   jbuilder (~> 2.10)
-  kaminari (~> 1.2, >= 1.2.2)
   letter_opener (~> 1.7)
   listen (~> 3.2)
   oj (~> 3.9, >= 3.9.2)
