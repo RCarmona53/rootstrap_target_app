@@ -36,6 +36,7 @@ group :development, :test do
   gem 'bullet', '~> 7.0.3'
   gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'kaminari', '~> 1.2', '>= 1.2.2'
   gem 'pry'
   gem 'pry-byebug', '~> 3.9', platform: :mri
   gem 'pry-rails', '~> 0.3.9'
