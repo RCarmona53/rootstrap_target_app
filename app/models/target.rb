@@ -17,7 +17,6 @@
 #  index_targets_on_topic_id  (topic_id)
 #  index_targets_on_user_id   (user_id)
 #
-# app/models/target.rb
 class Target < ApplicationRecord
   validates :title, presence: true
   validates :radius, presence: true, numericality: { greater_than: 0 }
@@ -47,11 +46,9 @@ class Target < ApplicationRecord
   end
 
   def create_conversation
-    matched_users = matched_targets.map do |target|
+    matched_targets.each do |target|
       matched_user = target.user
-      Conversation.create_chat(user, matched_user)
-      matched_user
+      TargetService.create_conversation(user, matched_user)
     end
-    matched_users.uniq
   end
 end
