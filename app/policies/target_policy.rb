@@ -13,10 +13,6 @@ class TargetPolicy < ApplicationPolicy
 
   private
 
-  def user_authenticated?
-    user.present?
-  end
-
   def target_belongs_to_user?
     record.user == user
   end

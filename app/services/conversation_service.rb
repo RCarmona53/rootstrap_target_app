@@ -8,10 +8,6 @@ class ConversationService
   end
 
   def self.already_created?(current_user, matched_user)
-    result = false
-    current_user.conversations.each do |conv|
-      result = true if conv.users.include?(matched_user)
-    end
-    result
+    current_user.conversations.any? { |conversation| conversation.users.include?(matched_user) }
   end
 end

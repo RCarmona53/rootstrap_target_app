@@ -46,4 +46,10 @@ class ApplicationPolicy
       scope.all
     end
   end
+
+  private
+
+  def user_authenticated?
+    user.present?
+  end
 end
