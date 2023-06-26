@@ -25,7 +25,7 @@ ActiveAdmin.register Target do
 
   controller do
     def scoped_collection
-      super.includes(:topic, :user)
+      super
     end
   end
 end
