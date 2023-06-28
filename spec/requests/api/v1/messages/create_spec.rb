@@ -58,4 +58,23 @@ describe 'POST /api/v1/conversations/:conversation_id/messages', type: :request 
       expect(response).to be_bad_request
     end
   end
+
+  context 'when the content of the message exceeds the allowed length' do
+    let(:long_content) { 'a' * (Message::MAX_CONTENT_LENGTH + 1) }
+
+    subject do
+      post "/api/v1/conversations/#{conversation.id}/messages",
+           params: { user_id: user.id, content: long_content, conversation_id: conversation.id },
+           headers: auth_headers, as: :json
+    end
+
+    it 'does not create the message' do
+      expect { subject }.not_to change(Message, :count)
+    end
+
+    it 'returns a bad request response' do
+      subject
+      expect(response).to be_bad_request
+    end
+  end
 end

@@ -18,8 +18,9 @@
 class Message < ApplicationRecord
   belongs_to :user
   belongs_to :conversation
+  MAX_CONTENT_LENGTH = 1000
 
-  validates :content, presence: true, length: { maximum: 1000 }
+  validates :content, presence: true, length: { maximum: MAX_CONTENT_LENGTH }
 
   scope :ordered, -> { order(created_at: :asc) }
 end

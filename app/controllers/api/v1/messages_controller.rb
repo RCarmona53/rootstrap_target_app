@@ -6,7 +6,7 @@ module Api
       end
 
       def create
-        @conversation = find_conversation
+        @conversation = conversation
         @message = build_message
 
         authorize @message
@@ -26,10 +26,6 @@ module Api
 
       def conversation
         @conversation ||= current_user.conversations.find(params[:conversation_id])
-      end
-
-      def find_conversation
-        current_user.conversations.find(params[:conversation_id])
       end
 
       def build_message
