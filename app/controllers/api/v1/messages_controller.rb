@@ -2,11 +2,10 @@ module Api
   module V1
     class MessagesController < Api::V1::ApiController
       def index
-        @messages = policy_scope(find_conversation.messages).includes(:user)
+        @messages = policy_scope(conversation.messages).includes(:user)
       end
 
       def create
-        conversation = find_conversation
         @message = build_message
 
         authorize @message
@@ -24,12 +23,12 @@ module Api
         params.require(:message).permit(:content)
       end
 
-      def find_conversation
-        @conversation ||= current_user.conversations.find(params[:conversation_id])
+      def conversation
+        current_user.conversations.find(params[:conversation_id])
       end
 
       def build_message
-        @conversation.messages.new(message_params).tap do |message|
+        conversation.messages.new(message_params).tap do |message|
           message.user = current_user
         end
       end
