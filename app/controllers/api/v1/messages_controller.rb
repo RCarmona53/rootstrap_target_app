@@ -2,21 +2,19 @@ module Api
   module V1
     class MessagesController < Api::V1::ApiController
       def index
-        conversation = find_conversation
-        @messages = policy_scope(conversation.messages)
-        render_messages(@messages)
+        @messages = policy_scope(find_conversation.messages).includes(:user)
       end
 
       def create
         conversation = find_conversation
-        message = build_message(conversation)
+        @message = build_message
 
-        authorize message
+        authorize @message
 
-        if save_message(message)
-          render_created_message(message)
+        if save_message
+          render json: { message: { content: @message.content } }, status: :created
         else
-          render_error(message)
+          render json: { errors: @message.errors.full_messages }, status: :bad_request
         end
       end
 
@@ -27,27 +25,17 @@ module Api
       end
 
       def find_conversation
-        current_user.conversations.find(params[:conversation_id])
+        @conversation ||= current_user.conversations.find(params[:conversation_id])
       end
 
-      def build_message(conversation)
-        conversation.messages.build(message_params.merge(user: current_user))
+      def build_message
+        @conversation.messages.new(message_params).tap do |message|
+          message.user = current_user
+        end
       end
 
-      def save_message(message)
-        message.save
-      end
-
-      def render_messages(messages)
-        render json: { messages: }, status: :ok
-      end
-
-      def render_created_message(message)
-        render json: { message: { content: message.content } }, status: :created
-      end
-
-      def render_error(message)
-        render json: { errors: message.errors.full_messages }, status: :bad_request
+      def save_message
+        @message.save
       end
     end
   end
