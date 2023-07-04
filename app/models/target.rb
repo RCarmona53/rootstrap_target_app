@@ -44,9 +44,7 @@ class Target < ApplicationRecord
   end
 
   def max_targets
-    return if user.vip?
-
-    return unless user.targets.count >= MAX_TARGETS
+    return unless !user.vip? && user.targets.count >= MAX_TARGETS
 
     errors.add(:user, I18n.t('api.errors.max_targets_reached', max_targets: MAX_TARGETS))
   end
