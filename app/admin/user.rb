@@ -1,9 +1,15 @@
 ActiveAdmin.register User do
-  permit_params :email, :first_name, :last_name, :username, :password, :password_confirmation
+  permit_params :email, :first_name, :last_name, :username, :password, :password_confirmation, :vip
+
+  member_action :promote_to_vip, method: :put do
+    resource.update!(vip: true)
+    redirect_to admin_user_path(resource)
+  end
 
   form do |f|
     f.inputs 'Details' do
       f.input :email
+      f.input :vip
       f.input :first_name
       f.input :last_name
       f.input :username
@@ -21,6 +27,7 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :email
+    column :vip
     column :first_name
     column :last_name
     column :username
@@ -33,6 +40,7 @@ ActiveAdmin.register User do
 
   filter :id
   filter :email
+  filter :vip
   filter :username
   filter :first_name
   filter :last_name
@@ -43,6 +51,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :id
       row :email
+      row :vip
       row :first_name
       row :last_name
       row :username
