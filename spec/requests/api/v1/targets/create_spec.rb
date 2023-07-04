@@ -99,5 +99,14 @@ describe 'POST api/v1/targets', type: :request do
         )
       end
     end
+
+    context 'When the user is VIP' do
+      let(:user) { create(:user, vip: true) }
+      let!(:user_targets) { create_list(:target, 5, user:) }
+
+      it 'creates unlimited targets' do
+        expect { subject }.to change { Target.count }
+      end
+    end
   end
 end
