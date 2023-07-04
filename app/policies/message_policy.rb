@@ -1,9 +1,9 @@
 class MessagePolicy < ApplicationPolicy
   def index?
-    true
+    user_authenticated?
   end
 
   def create?
-    true
+    user_authenticated?
   end
 end

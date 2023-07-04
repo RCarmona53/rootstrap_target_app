@@ -1,10 +1,10 @@
 class TargetPolicy < ApplicationPolicy
   def create?
-    true
+    user_authenticated?
   end
 
   def index?
-    true
+    user_authenticated?
   end
 
   def destroy?
