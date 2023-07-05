@@ -27,7 +27,7 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
       expect(json[:messages].first[:id]).to eq(messages.first.id)
       expect(json[:messages].first[:content]).to eq(messages.first.content)
     end
-    
+
     context 'when paginating the messages' do
       subject(:page_1_subject) do
         get api_v1_conversation_messages_path(conversation),
