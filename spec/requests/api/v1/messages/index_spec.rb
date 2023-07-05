@@ -70,5 +70,21 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
         expect(json['messages'].length).to eq(I18n.t('api.pagination.default_per_page'))
       end
     end
+
+    context 'when the request includes per_page param with excessive value' do
+      let(:excessive_per_page) { 1000000 }
+
+      before do
+        get api_v1_conversation_messages_path(conversation),
+            headers: auth_headers,
+            params: { 'page' => '1', 'per_page' => excessive_per_page },
+            as: :json
+      end
+
+      it 'limits the per_page value to a maximum' do
+        expect(response).to be_successful
+        expect(json['messages'].length).to eq(I18n.t('api.pagination.default_per_page'))
+      end
+    end
   end
 end
