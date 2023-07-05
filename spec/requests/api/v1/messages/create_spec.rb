@@ -32,8 +32,8 @@ describe 'POST /api/v1/conversations/:conversation_id/messages', type: :request 
     end
 
     it 'returns the message in the correct format' do
-      subject
-      expect(json[:message][:content]).to eq(message.content)
+      subject 
+      expect(json[:content]).to eq(message.content)
     end
   end
 

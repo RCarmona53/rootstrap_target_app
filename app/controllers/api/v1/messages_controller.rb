@@ -11,7 +11,7 @@ module Api
         authorize @message
 
         if save_message
-          render json: { message: { content: @message.content } }, status: :created
+          render :create
         else
           render json: { errors: @message.errors.full_messages }, status: :bad_request
         end
