@@ -72,7 +72,7 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
     end
 
     context 'when the request includes per_page param with excessive value' do
-      let(:excessive_per_page) { 1000000 }
+      let(:excessive_per_page) { 1_000_000 }
 
       before do
         get api_v1_conversation_messages_path(conversation),
