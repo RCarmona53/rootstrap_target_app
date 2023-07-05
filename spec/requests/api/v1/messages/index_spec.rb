@@ -66,8 +66,8 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
             as: :json
       end
 
-      it 'returns a list of messages with the default per_page value' do
-        expect(json['messages'].length).to eq(5)
+      it 'returns a list of messages for the conversation' do
+        expect(json['messages'].length).to eq(I18n.t('api.pagination.default_per_page'))
       end
     end
   end

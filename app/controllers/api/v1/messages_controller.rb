@@ -2,9 +2,10 @@ module Api
   module V1
     class MessagesController < Api::V1::ApiController
       include Pagy::Backend
+
       def index
         messages = policy_scope(conversation.messages).includes(:user)
-        per_page = params[:per_page] || 5
+        per_page = params[:per_page] || I18n.t('api.pagination.default_per_page')
         @pagy, @messages = pagy(messages.page(params[:page]), items: per_page)
       end
 
