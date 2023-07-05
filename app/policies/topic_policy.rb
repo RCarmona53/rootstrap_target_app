@@ -1,5 +1,5 @@
 class TopicPolicy < ApplicationPolicy
   def index?
-    true
+    user_authenticated?
   end
 end

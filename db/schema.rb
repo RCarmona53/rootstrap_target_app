@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_02_204531) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_211026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -118,6 +118,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_204531) do
     t.index ["conversation_id", "user_id"], name: "index_matches_on_conversation_id_and_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "key", null: false
     t.string "value"
@@ -174,6 +184,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_204531) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "conversations", "users"
   add_foreign_key "exception_hunter_errors", "exception_hunter_error_groups", column: "error_group_id"
+  add_foreign_key "messages", "conversations", primary_key: "conversation_id"
+  add_foreign_key "messages", "users"
   add_foreign_key "targets", "topics"
   add_foreign_key "targets", "users"
 end

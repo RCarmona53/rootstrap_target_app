@@ -17,6 +17,7 @@
 class Conversation < ApplicationRecord
   has_many :matches, dependent: :destroy
   has_many :users, through: :matches
+  has_many :messages, dependent: :destroy
 
   def self.create_chat(current_user, matched_user)
     ConversationService.create_chat(current_user, matched_user)
