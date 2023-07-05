@@ -3,64 +3,71 @@ describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request d
   let(:conversation) { create(:conversation_with_users, user1: user) }
   let(:messages) { create_list(:message, 5, conversation:) }
 
-  context 'when the request is valid' do
-    subject do
-      get api_v1_conversation_messages_path(conversation),
-          headers: auth_headers,
-          as: :json
-    end
+  before { messages }
 
-    before { messages }
+  subject(:get_messages) do
+    get api_v1_conversation_messages_path(conversation),
+        headers: auth_headers,
+        params: { 'page' => per_page },
+        as: :json
+  end
+
+  shared_context 'with page param' do |page|
+    let(:per_page) { page.to_s }
+
+    before { get_messages }
+  end
+
+  context 'when the request is valid' do
+    include_context 'with page param', 1
 
     it 'returns a list of messages for the conversation' do
-      subject
       expect(json['messages'].length).to eq(5)
     end
 
     it 'returns a successful response' do
-      subject
       expect(response).to be_successful
     end
 
     it 'returns the messages in the correct format' do
-      subject
-      expect(json[:messages].first[:id]).to eq(messages.first.id)
-      expect(json[:messages].first[:content]).to eq(messages.first.content)
+      expect(json['messages'].first['id']).to eq(messages.first.id)
+      expect(json['messages'].first['content']).to eq(messages.first.content)
     end
 
     context 'when paginating the messages' do
-      subject(:page_1_subject) do
-        get api_v1_conversation_messages_path(conversation),
-            headers: auth_headers,
-            params: { 'page' => '1' },
-            as: :json
-      end
+      let!(:more_messages) { create_list(:message, 10, conversation:) }
 
-      subject(:page_2_subject) do
-        get api_v1_conversation_messages_path(conversation),
-            headers: auth_headers,
-            params: { 'page' => '2' },
-            as: :json
-      end
+      include_context 'with page param', 1
 
-      it 'paginates the messages' do
-        create_list(:message, 10, conversation:)
-
-        page_1_subject
-        expect(response).to be_successful
-        expect(json['messages'].length).to eq(5)
-
-        page_2_subject
+      it 'paginates the messages for page 1' do
         expect(response).to be_successful
         expect(json['messages'].length).to eq(5)
       end
 
-      it 'returns a successful response for each page' do
-        page_1_subject
+      it 'returns a successful response for page 1' do
         expect(response).to be_successful
+      end
 
-        page_2_subject
+      include_context 'with page param', 2
+
+      it 'paginates the messages for page 2' do
         expect(response).to be_successful
+      end
+
+      it 'returns a successful response for page 2' do
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when the request does not include per_page param' do
+      before do
+        get api_v1_conversation_messages_path(conversation),
+            headers: auth_headers,
+            as: :json
+      end
+
+      it 'returns a list of messages with the default per_page value' do
+        expect(json['messages'].length).to eq(5)
       end
     end
   end

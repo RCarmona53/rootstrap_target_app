@@ -4,7 +4,7 @@ module Api
       include Pagy::Backend
       def index
         messages = policy_scope(conversation.messages).includes(:user)
-        per_page = 5
+        per_page = params[:per_page] || 5
         @pagy, @messages = pagy(messages.page(params[:page]), items: per_page)
       end
 
