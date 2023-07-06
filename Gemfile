@@ -41,7 +41,6 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec_api_documentation', '~> 6.1.0'
   gem 'rspec-rails', '~> 4.1'
-  gem 'rufus-scheduler', '~> 3.9', '>= 3.9.1'
 end
 
 group :development do
