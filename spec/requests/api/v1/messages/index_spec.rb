@@ -3,10 +3,8 @@ DEFAULT_PER_PAGE = 5
 describe 'GET /api/v1/conversations/:conversation_id/messages', type: :request do
   let(:user) { create(:user) }
   let(:conversation) { create(:conversation_with_users, user1: user) }
-  let(:messages) { create_list(:message, 5, conversation:) }
-
-  before { messages }
-
+  let!(:messages) { create_list(:message, 5, conversation:) }
+  
   subject(:get_messages) do
     get api_v1_conversation_messages_path(conversation),
         headers: auth_headers,
