@@ -11,5 +11,3 @@ en:
       max_targets_reached: You have reached the maximum number (%{max_targets}) of targets.
       missing_param: A required param is missing
       not_found: Couldn't find the record
-    pagination:
-      default_per_page: 5
