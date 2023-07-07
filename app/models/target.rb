@@ -33,6 +33,10 @@ class Target < ApplicationRecord
 
   MAX_TARGETS = ENV.fetch('TARGET_CREATION_LIMIT', '3').to_i
 
+  def self.cleanup_old_targets
+    older_than_one_week.destroy_all
+  end
+
   private
 
   def matched_targets
@@ -51,4 +55,6 @@ class Target < ApplicationRecord
       TargetService.create_conversation(user, matched_user)
     end
   end
+
+  scope :older_than_one_week, -> { where('created_at <= ?', 1.week.ago) }
 end
