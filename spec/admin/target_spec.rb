@@ -14,7 +14,7 @@ RSpec.describe 'Admin Targets', type: :request do
 
       get '/admin/targets'
 
-      expect(response).to have_http_status(200)
+      expect(response).to be_successful
 
       expect(response.body).to include(target1.title)
       expect(response.body).to include(target2.title)
