@@ -5,7 +5,7 @@ ActiveAdmin.register Target do
   filter :radius
   filter :lat
   filter :lng
-  filter :topic, as: :select, collection: -> { Topic.all }, multiple: true
+  filter :topic, as: :select, collection: -> { Topic.all.pluck(:name, :id) }
   filter :user
 
   index do
@@ -19,13 +19,16 @@ ActiveAdmin.register Target do
     column :user
     actions
   end
-  filter :title
-  filter :topic
-  filter :user
 
   controller do
     def scoped_collection
       super
+    end
+  end
+
+  controller do
+    def apply_filtering(chain)
+      super.includes(:topic, :user)
     end
   end
 end
