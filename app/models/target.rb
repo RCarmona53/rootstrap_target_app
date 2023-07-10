@@ -19,7 +19,7 @@
 #
 class Target < ApplicationRecord
   validates :title, presence: true
-  validates :radius, presence: true, numericality: { greater_than: 0 }
+  validates :radius, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :lat, :lng, presence: true, numericality: true
 
   scope :exclude_current_user, ->(current_user_id) { where.not(user_id: current_user_id) }
