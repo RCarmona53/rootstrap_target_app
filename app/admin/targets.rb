@@ -21,12 +21,6 @@ ActiveAdmin.register Target do
   end
 
   controller do
-    def scoped_collection
-      super
-    end
-  end
-
-  controller do
     def apply_filtering(chain)
       super.includes(:topic, :user)
     end
