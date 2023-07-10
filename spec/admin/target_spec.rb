@@ -7,7 +7,7 @@ RSpec.describe 'Admin Targets', type: :request do
     sign_in admin_user
   end
 
-  describe 'Show all targets' do
+  describe 'GET /admin/targets' do
     it 'displays all targets for the admin user' do
       target1 = FactoryBot.create(:target, title: 'Target 1')
       target2 = FactoryBot.create(:target, title: 'Target 2')

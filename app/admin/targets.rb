@@ -12,9 +12,6 @@ ActiveAdmin.register Target do
     actions
   end
   filter :title
-  filter :radius
-  filter :lat
-  filter :lng
   filter :topic
   filter :user
 
