@@ -22,10 +22,4 @@ ActiveAdmin.register Target do
   filter :title
   filter :topic
   filter :user
-
-  controller do
-    def scoped_collection
-      super
-    end
-  end
 end

@@ -5,7 +5,7 @@ describe 'POST api/v1/targets', type: :request do
   let(:failed_response) { 400 }
 
   describe 'POST create' do
-    subject { post api_v1_targets_path, params:, headers: auth_headers, as: :json }
+    subject { post api_v1_targets_path, params: params, headers: auth_headers, as: :json }
     let(:title)           { 'test' }
     let(:radius)          { 5 }
     let(:lat)             { -33.8866 }
@@ -100,12 +100,12 @@ describe 'POST api/v1/targets', type: :request do
       end
     end
 
-    context 'When the user is VIP' do
+    context 'when the user is VIP' do
       let(:user) { create(:user, vip: true) }
-      let!(:user_targets) { create_list(:target, 5, user:) }
+      let!(:user_targets) { create_list(:target, Target::MAX_TARGETS, user:) }
 
-      it 'creates unlimited targets' do
-        expect { subject }.to change { Target.count }
+      it 'creates more than 3 targets if VIP' do
+        expect { subject }.to change(user.targets, :count).by(1)
       end
     end
   end
