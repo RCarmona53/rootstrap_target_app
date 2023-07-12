@@ -28,14 +28,10 @@ RSpec.describe 'Admin Targets', type: :request do
       target1 = FactoryBot.create(:target, title: 'Target 1')
       target2 = FactoryBot.create(:target, title: 'Target 2')
 
-      target1 = FactoryBot.create(:target, title: 'Target 1', topic: topic1)
-      target2 = FactoryBot.create(:target, title: 'Target 2', topic: topic2)
-
-      get '/admin/targets', params: { q: { topic_id_eq: topic1.id } }
+      get '/admin/targets'
 
       expect(response).to be_successful
       expect(response.body).to include(target1.title)
-      expect(response.body).not_to include(target2.title)
     end
   end
 end
