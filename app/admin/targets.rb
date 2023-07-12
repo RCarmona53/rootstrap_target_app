@@ -1,5 +1,13 @@
 ActiveAdmin.register Target do
   permit_params :title, :lat, :lng, :radius, :topic_id
+
+  filter :title
+  filter :radius
+  filter :lat
+  filter :lng
+  filter :topic, as: :select, collection: -> { Topic.all.pluck(:name, :id) }
+  filter :user
+
   index do
     selectable_column
     id_column
@@ -11,12 +19,9 @@ ActiveAdmin.register Target do
     column :user
     actions
   end
-  filter :title
-  filter :topic
-  filter :user
 
   controller do
-    def scoped_collection
+    def apply_filtering(chain)
       super.includes(:topic, :user)
     end
   end
