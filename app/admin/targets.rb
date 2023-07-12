@@ -22,7 +22,6 @@ ActiveAdmin.register Target do
 
   filter :title
   filter :topic
-  filter :user
 
   controller do
     def apply_filtering(chain)
