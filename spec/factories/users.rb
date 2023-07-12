@@ -21,6 +21,7 @@
 #  provider               :string           default("email"), not null
 #  uid                    :string           default(""), not null
 #  tokens                 :json
+#  vip                    :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -37,5 +38,6 @@ FactoryBot.define do
     first_name { Faker::Name.unique.name }
     last_name  { Faker::Name.unique.last_name }
     uid        { Faker::Internet.uuid }
+    vip        { false }
   end
 end
