@@ -20,6 +20,10 @@ ActiveAdmin.register Target do
     actions
   end
 
+  filter :title
+  filter :topic
+  filter :user
+
   controller do
     def apply_filtering(chain)
       super.includes(:topic, :user)
